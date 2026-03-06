@@ -1,0 +1,24 @@
+# Dependency directories
+node_modules/
+
+# Environment variables (보안을 위해 필수)
+.env
+.env*
+
+# Local Data (알림 채널 정보 등 로컬 데이터)
+subscriptions.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo

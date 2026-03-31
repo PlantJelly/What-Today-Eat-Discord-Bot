@@ -20,7 +20,7 @@ const commands = [
     ),
   new SlashCommandBuilder()
     .setName('알림받기')
-    .setDescription('매일 정해진 시간(08:00, 11:30, 17:00)에 식단 알림을 받습니다.'),
+    .setDescription('평일(월~금) 정해진 시간(07:30, 11:00, 16:30)에 식단 알림을 받습니다.'),
   new SlashCommandBuilder()
     .setName('알림해제')
     .setDescription('자동 식단 알림을 해제합니다.'),

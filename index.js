@@ -33,7 +33,7 @@ const commands = [
     ),
   new SlashCommandBuilder()
     .setName('알림받기')
-    .setDescription('매일 정해진 시간(08:00, 11:30, 17:00)에 식단 알림을 받습니다.'),
+    .setDescription('평일(월~금) 정해진 시간(07:30, 11:00, 16:30)에 식단 알림을 받습니다.'),
   new SlashCommandBuilder()
     .setName('알림해제')
     .setDescription('자동 식단 알림을 해제합니다.'),
@@ -115,10 +115,10 @@ client.once('ready', async () => {
     console.log('✅ 슬래시 명령어 등록 완료');
   } catch (e) { console.error('명령어 등록 실패:', e); }
 
-  // 크론 스케줄 설정 (08:00 조식, 11:30 중식, 17:00 석식)
-  cron.schedule('0 8 * * *', () => sendScheduledMeal('조식'), { timezone: "Asia/Seoul" });
-  cron.schedule('30 11 * * *', () => sendScheduledMeal('중식'), { timezone: "Asia/Seoul" });
-  cron.schedule('0 17 * * *', () => sendScheduledMeal('석식'), { timezone: "Asia/Seoul" });
+  // 크론 스케줄 설정 (평일 월~금: 07:30 조식, 11:00 중식, 16:30 석식)
+  cron.schedule('30 7 * * 1-5', () => sendScheduledMeal('조식'), { timezone: "Asia/Seoul" });
+  cron.schedule('0 11 * * 1-5', () => sendScheduledMeal('중식'), { timezone: "Asia/Seoul" });
+  cron.schedule('30 16 * * 1-5', () => sendScheduledMeal('석식'), { timezone: "Asia/Seoul" });
   
   console.log('⏰ 자동 알림 스케줄러가 활성화되었습니다.');
 });
@@ -169,7 +169,7 @@ client.on('interactionCreate', async (interaction) => {
     if (!subs.includes(interaction.channelId)) {
       subs.push(interaction.channelId);
       saveSubscriptions(subs);
-      await interaction.reply('✅ 이 채널에 매일 **08:00, 11:30, 17:00** 자동 식단 알림이 등록되었습니다!');
+      await interaction.reply('✅ 이 채널에 평일(월~금) **07:30, 11:00, 16:30** 자동 식단 알림이 등록되었습니다!');
     } else {
       await interaction.reply('ℹ️ 이미 이 채널에 알림이 등록되어 있습니다.');
     }
